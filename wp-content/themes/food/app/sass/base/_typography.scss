@@ -1,8 +1,7 @@
-$cuprum: 'Cuprum';
+$pangram: 'PPPangramSansRounded';
 
 $dir: '../fonts';
 
-@include font-face( $dir, $cuprum, 'Regular' );
-@include font-face( $dir, $cuprum, 'Bold' );
-@include font-face( $dir, $cuprum, 'BoldItalic', 'ttf', italic );
-@include font-face( $dir, $cuprum, 'Italic', 'ttf', italic );
+@include font-face( $dir, $pangram, 'Medium', 'otf' );
+@include font-face( $dir, $pangram, 'Light', 'otf' );
+@include font-face( $dir, $pangram, 'Semi-Bold', 'otf' );
