@@ -181,3 +181,136 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+function dishes_create_post_type() {
+    $labels = array(
+        'name' => __( 'dishes' ),
+        'singular_name' => __( 'Dishes' ),
+        'add_new' => __( 'New dish' ),
+        'add_new_item' => __( 'Add new dish' ),
+        'edit_item' => __( 'Edit dish' ),
+        'new_item' => __( 'New dish' ),
+        'view_item' => __( 'View dish' ),
+        'search_items' => __( 'Search dish' ),
+        'not_found'          => __('Not found'),
+        'not_found_in_trash' => __( 'Not found in trash' ),
+        'parent_item_colon'  => __('dashicons-book-alt'),
+        'menu_name'          => __('Dishes'),
+    );
+    $args = array(
+        'labels' => $labels,
+        'has_archive' => true,
+        'public' => true,
+
+        'hierarchical' => true,
+        'menu_position' => 5,
+        'show_in_rest'       => true,
+        'taxonomies' => array('dishes_cat'),
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'custom-fields',
+            'thumbnail',
+            'page-attributes',
+            'custom-fields',
+            'comments'
+
+        ),
+    );
+    register_post_type( 'dishes', $args );
+}
+add_action( 'init', 'dishes_create_post_type' );
+
+function dishes_register_taxonomy() {
+    register_taxonomy( 'dishes_cat', 'dishes',
+        array(
+            'labels'                => [
+                'name'              => 'Dishes categories',
+                'singular_name'     => 'Dishes category',
+                'search_items'      => 'Search dishes category',
+                'all_items'         => 'All dishes categories',
+                'view_item'         => 'View dishes categories',
+                'parent_item'       => 'Parent Dishes',
+                'parent_item_colon' => 'Parent Dishes:',
+                'edit_item'         => 'Edit dishes category',
+                'update_item'       => 'Update dishes category',
+                'add_new_item'      => 'Add dishes category',
+                'new_item_name'     => 'Dishes category name',
+                'menu_name'         => 'Dishes categories',
+            ],
+            'hierarchical' => true,
+            'sort' => true,
+            'args' => array( 'orderby' => 'term_order' ),
+            'show_in_rest'       => true,
+            'show_admin_column' => true
+        )
+    );
+}
+add_action( 'init', 'dishes_register_taxonomy' );
+
+function restaurant_create_post_type() {
+    $labels = array(
+        'name' => __( 'restaurants' ),
+        'singular_name' => __( 'Restaurants' ),
+        'add_new' => __( 'New restaurant' ),
+        'add_new_item' => __( 'Add new restaurant' ),
+        'edit_item' => __( 'Edit restaurant' ),
+        'new_item' => __( 'New restaurant' ),
+        'view_item' => __( 'View restaurant' ),
+        'search_items' => __( 'Search restaurant' ),
+        'not_found'          => __('Not found'),
+        'not_found_in_trash' => __( 'Not found in trash' ),
+        'parent_item_colon'  => __('dashicons-book-alt'),
+        'menu_name'          => __('Restaurants'),
+    );
+    $args = array(
+        'labels' => $labels,
+        'has_archive' => true,
+        'public' => true,
+
+        'hierarchical' => true,
+        'menu_position' => 5,
+        'show_in_rest'       => true,
+        'taxonomies' => array('restaurants_cat'),
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'custom-fields',
+            'thumbnail',
+            'page-attributes',
+            'custom-fields',
+            'comments'
+
+        ),
+    );
+    register_post_type( 'restaurants', $args );
+}
+add_action( 'init', 'restaurant_create_post_type' );
+
+function restaurant_register_taxonomy() {
+    register_taxonomy( 'restaurants_cat', 'restaurants',
+        array(
+            'labels'                => [
+                'name'              => 'Restaurants categories',
+                'singular_name'     => 'Restaurants category',
+                'search_items'      => 'Search restaurants category',
+                'all_items'         => 'All restaurants categories',
+                'view_item'         => 'View restaurants categories',
+                'parent_item'       => 'Parent Restaurants',
+                'parent_item_colon' => 'Parent Restaurants:',
+                'edit_item'         => 'Edit restaurants category',
+                'update_item'       => 'Update restaurants category',
+                'add_new_item'      => 'Add restaurants category',
+                'new_item_name'     => 'Restaurants category name',
+                'menu_name'         => 'Restaurants categories',
+            ],
+            'hierarchical' => true,
+            'sort' => true,
+            'args' => array( 'orderby' => 'term_order' ),
+            'show_in_rest'       => true,
+            'show_admin_column' => true
+        )
+    );
+}
+add_action( 'init', 'restaurant_register_taxonomy' );
