@@ -9,6 +9,19 @@
  * @package food
  */
 
+$dishes_categories = get_terms( array(
+    'taxonomy' => 'dishes_cat',
+    'exclude' => [2, 3],
+    'exclude_tree' => 15,
+    'hide_empty' => false,
+) );
+$dishes_categories = (array)$dishes_categories;
+
+$dishes_categories_arr = [];
+foreach ($dishes_categories as $dishes_category) {
+    array_push($dishes_categories_arr, $dishes_category->name);
+}
+
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -23,7 +36,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'food' ); ?></a>
+
 
 	<header id="masthead" class="site-header">
 		<div class="site-branding">
@@ -45,15 +58,16 @@
 			<?php endif; ?>
 		</div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'food' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+	</header>
+  <nav>
+    <ul class="categories">
+      <li class="categories__item">
+        <a href="#" class="categories__item_link">Hits</a>
+      </li>
+      <?php foreach ($dishes_categories_arr as $dishes_category) : ?>
+      <li class="categories__item">
+        <a href="#" class="categories__item_link"><?= $dishes_category; ?></a>
+      </li>
+      <?php endforeach; ?>
+    </ul>
+  </nav>
