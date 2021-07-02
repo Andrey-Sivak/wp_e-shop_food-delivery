@@ -1,0 +1,236 @@
+body,
+p,
+ul, li,
+h1, h2, h3, h4, h5, h6,
+input,
+textarea,
+a {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  border: none;
+  text-decoration: none; }
+
+* {
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: "Cuprum";
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Cuprum-Regular.ttf") format("truetype");
+  font-style: normal; }
+
+@font-face {
+  font-family: "Cuprum";
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/Cuprum-Bold.ttf") format("truetype");
+  font-style: normal; }
+
+@font-face {
+  font-family: "Cuprum";
+  font-display: swap;
+  src: url("../fonts/Cuprum-BoldItalic.ttf") format("truetype");
+  font-style: italic; }
+
+@font-face {
+  font-family: "Cuprum";
+  font-display: swap;
+  src: url("../fonts/Cuprum-Italic.ttf") format("truetype");
+  font-style: italic; }
+
+body {
+  font-family: "Roboto", sans-serif; }
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto; }
+  @media (max-width: 1182px) {
+    .container {
+      padding-left: 15px;
+      padding-right: 15px; } }
+
+.add-form {
+  max-width: 410px;
+  width: 100%; }
+  @media (max-width: 767px) {
+    .add-form {
+      margin-bottom: 35px; } }
+  .add-form__title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 80px;
+    text-align: center; }
+    @media (max-width: 767px) {
+      .add-form__title {
+        margin-bottom: 20px; } }
+  .add-form__wrap {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 30px 25px;
+    margin-bottom: 20px; }
+  .add-form__formgroup {
+    position: relative;
+    width: 100%; }
+    .add-form__formgroup:not(:last-of-type) {
+      margin-bottom: 20px; }
+    .add-form__formgroup label {
+      font-size: 18px;
+      font-weight: 500;
+      left: 16px; }
+    .add-form__formgroup textarea {
+      min-height: 102px;
+      resize: vertical;
+      font-family: "Roboto", sans-serif; }
+    .add-form__formgroup span.error {
+      position: absolute;
+      bottom: 100%;
+      color: red;
+      font-size: 12px;
+      left: 0; }
+  .add-form__input {
+    width: 100%;
+    background: #C4C4C4;
+    border-radius: 5px;
+    padding: 11px 16px;
+    font-size: 18px;
+    font-weight: 500; }
+    .add-form__input::-webkit-input-placeholder {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: "Roboto", sans-serif; }
+    .add-form__input::-moz-placeholder {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: "Roboto", sans-serif; }
+    .add-form__input:-ms-input-placeholder {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: "Roboto", sans-serif; }
+    .add-form__input::-ms-input-placeholder {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: "Roboto", sans-serif; }
+    .add-form__input::placeholder {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: "Roboto", sans-serif; }
+    .add-form__input.error {
+      border: 1px solid red; }
+  .add-form__btn {
+    width: 100%;
+    display: block;
+    text-align: center;
+    background: #C4C4C4;
+    border-radius: 5px;
+    padding: 9px 0;
+    font-weight: bold;
+    font-size: 24px;
+    border: none;
+    cursor: pointer; }
+
+.settings__form {
+  max-width: 452px;
+  width: 100%;
+  margin: 0 auto; }
+  @media (max-width: 767px) {
+    .settings__form {
+      width: 90%; } }
+  .settings__form_title {
+    font-weight: 500;
+    margin-bottom: 20px; }
+  .settings__formgroup {
+    margin-bottom: 20px;
+    width: 100%;
+    position: relative; }
+    .settings__formgroup input {
+      display: block;
+      width: 100%;
+      padding: 18px 20px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      font-size: 24px;
+      font-weight: 500; }
+      @media (max-width: 767px) {
+        .settings__formgroup input {
+          font-size: 18px; } }
+    .settings__formgroup label {
+      left: 20px; }
+  .settings__form button {
+    background: #E2E2E2;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 24px;
+    padding: 18px 0;
+    border: none;
+    font-weight: 500;
+    -webkit-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+    margin-bottom: 20px; }
+    .settings__form button:hover, .settings__form button:active, .settings__form button:focus {
+      background: #c9c9c9; }
+    @media (max-width: 767px) {
+      .settings__form button {
+        font-size: 18px; } }
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif; }
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif; }
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif; }
+
+input::-ms-input-placeholder, textarea::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif; }
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif; }
+
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
+  color: transparent; }
+
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {
+  color: transparent; }
+
+input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder {
+  color: transparent; }
+
+input:focus::-ms-input-placeholder, textarea:focus::-ms-input-placeholder {
+  color: transparent; }
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: transparent; }
+
+input:focus + label,
+textarea:focus + label {
+  opacity: 1;
+  z-index: 2;
+  font-size: 10px;
+  top: 1px;
+  -webkit-transform: unset;
+      -ms-transform: unset;
+          transform: unset; }
+
+label {
+  position: absolute;
+  z-index: -2;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  opacity: 0; }
+
+/*# sourceMappingURL=main.css.map */

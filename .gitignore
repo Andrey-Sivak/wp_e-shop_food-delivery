@@ -1,0 +1,30 @@
+# PHPStorm
+.idea
+
+# WordPress
+*.log
+/wp-*.php
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/sitemap.xml
+/sitemap.xml.gz
+
+/backup*
+
+wp-admin/
+wp-includes/
+design/
+
+wp-content/*
+!wp-content/themes/
+wp-content/themes/*
+
+!wp-content/plugins/
+wp-content/plugins/*
+
+!wp-content/themes/food/
+
+# Frontend tools
+wp-content/themes/food/node_modules/

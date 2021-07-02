@@ -1,0 +1,8 @@
+$cuprum: 'Cuprum';
+
+$dir: '../fonts';
+
+@include font-face( $dir, $cuprum, 'Regular' );
+@include font-face( $dir, $cuprum, 'Bold' );
+@include font-face( $dir, $cuprum, 'BoldItalic', 'ttf', italic );
+@include font-face( $dir, $cuprum, 'Italic', 'ttf', italic );

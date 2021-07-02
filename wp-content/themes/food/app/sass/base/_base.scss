@@ -1,0 +1,13 @@
+body {
+  font-family: $roboto;
+}
+
+.container {
+  max-width: $container;
+  margin: 0 auto;
+
+  @include response-to(large) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
