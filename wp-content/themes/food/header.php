@@ -62,11 +62,24 @@ foreach ($dishes_categories as $dishes_category) {
   <nav>
     <ul class="categories">
       <li class="categories__item">
-        <a href="#" class="categories__item_link">Hits</a>
+        <a data-id="3"
+           href="#"
+           class="categories__item_link">Hits</a>
       </li>
-      <?php foreach ($dishes_categories_arr as $dishes_category) : ?>
+      <?php foreach ($dishes_categories_arr as $dishes_category) :
+
+      $dishes_cat_ID = null;
+
+      foreach ($dishes_categories as $dishes_cat) {
+        if ( $dishes_cat->name == $dishes_category ) {
+          $dishes_cat_ID = $dishes_cat->term_id;
+        }
+      }
+          ?>
       <li class="categories__item">
-        <a href="#" class="categories__item_link"><?= $dishes_category; ?></a>
+        <a data-id="<?= $dishes_cat_ID; ?>"
+           href="#"
+           class="categories__item_link"><?= $dishes_category; ?></a>
       </li>
       <?php endforeach; ?>
     </ul>
