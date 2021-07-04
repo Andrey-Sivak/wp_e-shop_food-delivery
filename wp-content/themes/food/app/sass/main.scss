@@ -10,5 +10,9 @@
 @import "includes/header";
 
 @import "components/form";
+@import "components/categories-list";
+@import "components/restaurants-list";
+
+@import "libs/slick";
 
 @import "pages/home-page";
