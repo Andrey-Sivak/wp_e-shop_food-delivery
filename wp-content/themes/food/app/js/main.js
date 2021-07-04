@@ -106,4 +106,18 @@ window.addEventListener('load', function () {
         });
     })();
 
+    (function restaurantsSlider() {
+        if (!document.querySelector('.restaurants__list')) {
+            return;
+        }
+
+        $('.restaurants__list').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            prevArrow: '<div class="slick-prev"><span></span></div>',
+            nextArrow: '<div class="slick-next"><span></span></div>',
+        });
+    })();
+
 });
