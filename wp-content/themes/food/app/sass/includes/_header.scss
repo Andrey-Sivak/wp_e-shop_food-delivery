@@ -1,3 +1,45 @@
-.header {
+.home-page {
 
+  .header {
+
+    &__wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 200px;
+      padding-bottom: 275px;
+    }
+
+    &__text {
+      max-width: 555px;
+      position: relative;
+      z-index: 2;
+
+      &_main {
+        margin-bottom: 30px;
+
+        & p {
+          font-size: 100px;
+          text-transform: uppercase;
+          font-weight: 500;
+        }
+
+        & p span {
+          color: $grey-color!important;
+        }
+      }
+
+      &_simple {
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 50px;
+      }
+    }
+
+    &__img {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 }
