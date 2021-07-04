@@ -1,10 +1,12 @@
 body {
   font-family: $pangram;
+  color: $grey-color;
 }
 
 .container {
   max-width: $container;
   margin: 0 auto;
+  padding: 0 15px;
 
   @include response-to(large) {
     padding-left: 15px;
