@@ -17,11 +17,8 @@ get_header();
 
 	<main id="primary" class="site-main home">
 
-<!--    --><?php //get_template_part('/template-parts/restaurants-list'); ?>
-
-    <br>
+    <?php get_template_part('/template-parts/restaurants-list'); ?>
     <?php get_template_part('/template-parts/dishes-list'); ?>
-    <br>
 	</main><!-- #main -->
 
 <?php
