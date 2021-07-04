@@ -1,6 +1,6 @@
 <?php
 $restaurants = get_posts([
-    'post_type' => 'restaurants',
+    'category' => [35, -22],
     'numberpost' => -1,
 ]);
 ?>

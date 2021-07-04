@@ -181,7 +181,7 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
-function dishes_create_post_type() {
+/*function dishes_create_post_type() {
     $labels = array(
         'name' => __( 'dishes' ),
         'singular_name' => __( 'Dishes' ),
@@ -313,7 +313,7 @@ function restaurant_register_taxonomy() {
         )
     );
 }
-add_action( 'init', 'restaurant_register_taxonomy' );
+add_action( 'init', 'restaurant_register_taxonomy' );*/
 
 if( function_exists('acf_add_options_page') ) {
 
