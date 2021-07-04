@@ -55,6 +55,7 @@ $hits_dishes = $tmp_dish;
 </script>
 
 <div class="dishes-list">
+  <p class="dish__category">Hits</p>
 
   <?php foreach ($hits_dishes as $dish) : ?>
     <div class="dish__img-wrap">

@@ -6,6 +6,7 @@ $restaurants = get_posts([
 ?>
 
 <div class="restaurants">
+    <p class="caption">Restaurants</p>
     <div class="restaurants__list">
         <?php foreach ($restaurants as $restaurant) : ?>
             <div class="restaurants__item">
