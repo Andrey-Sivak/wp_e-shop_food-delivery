@@ -62,9 +62,9 @@ foreach ($dishes_categories as $dishes_category) {
   <nav>
     <ul class="categories">
       <li class="categories__item">
-        <a data-id="3"
+        <a data-id="23"
            href="#"
-           class="categories__item_link">Hits</a>
+           class="categories__item_link active">Hits</a>
       </li>
       <?php foreach ($dishes_categories_arr as $dishes_category) :
 
