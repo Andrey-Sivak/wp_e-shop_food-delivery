@@ -9,12 +9,12 @@
  * @package food
  */
 
-$dishes_categories = get_terms( array(
-    'taxonomy' => 'dishes_cat',
-    'exclude' => [2, 3],
-    'exclude_tree' => 15,
-    'hide_empty' => false,
-) );
+$dishes_categories = get_categories([
+   'parent' => 22,
+   'hide_empty' => false,
+    'exclude' => 23
+]);
+
 $dishes_categories = (array)$dishes_categories;
 
 $dishes_categories_arr = [];
