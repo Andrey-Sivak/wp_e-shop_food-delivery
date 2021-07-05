@@ -27,6 +27,7 @@ window.addEventListener('load', function () {
         const categoryItemClass = '.categories__item_link';
         const categoriesList = [...document.querySelectorAll(categoryItemClass)];
         const dishesList = document.querySelector('.dishes-list');
+        const categoryCaption = document.querySelector('.dish__category');
 
         categoriesList.forEach(c => {
             c.addEventListener('click', function (e) {
@@ -38,6 +39,7 @@ window.addEventListener('load', function () {
                 const categoryId = +this.dataset.id;
 
                 dishesList.innerHTML = '';
+                categoryCaption.innerHTML = this.innerHTML;
 
                 this.classList.add('active');
                 document.querySelector(`${categoryItemClass}.active`)
@@ -86,8 +88,9 @@ window.addEventListener('load', function () {
             }
 
             function createElements(data) {
-                const dishItem = document.createElement('div');
+                const dishItem = document.createElement('a');
                 dishItem.classList.add('dish');
+                dishItem.setAttribute('href', data.link);
 
                 const elementTemplate = `
                                     <div class="dish__img-wrap">
@@ -97,6 +100,11 @@ window.addEventListener('load', function () {
                                       <div class="dish__info_main">
                                         <p class="dish__info_title">${data.post_title}</p>
                                         <p class="dish__info_coast">${data.price}<span></span></p>
+                                      </div>
+                                      <div class="dish__info_delivery">
+                                        <p class="${data.free_delivery ? 
+                                            'free' : 'price'}">${data.free_delivery ? 
+                                            'Free delivery' : 'Delivery ' + data.delivery_price}</p> 
                                       </div>
                                     </div>`;
                 dishItem.insertAdjacentHTML('afterbegin', elementTemplate);

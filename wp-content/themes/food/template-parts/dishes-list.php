@@ -23,6 +23,9 @@ foreach ($dishes_categories as $dishes_category) {
         $dish = (array)$dish;
         $dish += ['img' => get_field('img', $dish['ID'])];
         $dish += ['price' => get_field('price', $dish['ID'])];
+        $dish += ['free_delivery' => get_field('free_delivery', $dish['ID'])];
+        $dish += ['delivery_price' => get_field('delivery_price', $dish['ID'])];
+        $dish += ['link' => get_permalink($dish['ID'])];
         array_push($tmp, $dish);
     }
 
@@ -43,6 +46,9 @@ foreach ($hits_dishes as $hits_dish) {
   $hits_dish = (array)$hits_dish;
   $hits_dish += ['img' => get_field('img', $hits_dish['ID'])];
   $hits_dish += ['price' => get_field('price', $hits_dish['ID'])];
+  $hits_dish += ['free_delivery' => get_field('free_delivery', $hits_dish['ID'])];
+  $hits_dish += ['delivery_price' => get_field('delivery_price', $hits_dish['ID'])];
+  $hits_dish += ['link' => get_permalink($hits_dish['ID'])];
   array_push($tmp_dish, $hits_dish);
 }
 
@@ -54,20 +60,31 @@ $hits_dishes = $tmp_dish;
   let hitsDishes = <?= json_encode($hits_dishes, JSON_UNESCAPED_UNICODE); ?>;
 </script>
 
-<div class="dishes-list">
-  <p class="dish__category">Hits</p>
+<div class="dishes container">
+  <p class="dish__category caption">Hits</p>
 
-  <?php foreach ($hits_dishes as $dish) : ?>
-    <div class="dish__img-wrap">
-      <div class="dish__img" style="background-image: url('<?= $dish['img']; ?>');"></div>
-    </div>
-    <div class="dish__info">
-      <div class="dish__info_main">
-        <p class="dish__info_title"><?= $dish['post_title']; ?></p>
-        <p class="dish__info_coast"><?= $dish['price']; ?><span></span></p>
+  <div class="dishes-list">
+    <?php foreach ($hits_dishes as $dish) : ?>
+    <a href="<?= get_permalink($dish['ID']); ?>" class="dish">
+      <div class="dish__img-wrap">
+        <div class="dish__img" style="background-image: url('<?= $dish['img']; ?>');"></div>
       </div>
-    </div>
-  <?php endforeach; ?>
+      <div class="dish__info">
+        <div class="dish__info_main">
+          <p class="dish__info_title"><?= $dish['post_title']; ?></p>
+          <p class="dish__info_coast"><?= $dish['price']; ?><span></span></p>
+        </div>
+        <div class="dish__info_delivery">
+            <?php if (get_field('free_delivery', $dish['ID'])) : ?>
+              <p class="free">Free delivery</p>
+            <?php else : ?>
+              <p class="price">Delivery <?= get_field('delivery_price', $dish['ID']); ?></p>
+            <?php endif; ?>
+        </div>
+      </div>
+    </a>
+    <?php endforeach; ?>
+  </div>
 
 </div>
 
