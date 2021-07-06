@@ -7,7 +7,8 @@
       <p class="header__text_simple"><?= get_field('text'); ?></p>
     </div>
     <div class="header__img">
-      <img src="<?= get_template_directory_uri() . '/dist/img/home-page-header-img.png'; ?>" alt="img">
+      <img src="<?= get_template_directory_uri() . '/dist/img/home-page-header-img.png'; ?>"
+           alt="img">
     </div>
   </div>
 </div>

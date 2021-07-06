@@ -1,92 +1,84 @@
 <?php
 
-// get all dishes without hits
-$dishes_categories = get_categories([
-    'parent' => 22,
-    'hide_empty' => false,
-    'exclude' => 23
-]);
-$dishes_categories = (array)$dishes_categories;
+if (+$_GET['biglunch'] || get_the_ID() == 127) {
 
-$main_arr = [];
-
-foreach ($dishes_categories as $dishes_category) {
-    $tmp = [];
-    array_push($tmp, $dishes_category->term_id);
-    $dishes = get_posts([
-        'category' => $dishes_category->term_id,
+    $dishes_list = get_posts([
+        'category' => 42,
         'numberpost' => -1,
     ]);
-    $dishes = (array)$dishes;
+} elseif ($_GET['category']) {
 
-    foreach ($dishes as $dish) {
-        $dish = (array)$dish;
-        $dish += ['img' => get_field('img', $dish['ID'])];
-        $dish += ['price' => get_field('price', $dish['ID'])];
-        $dish += ['free_delivery' => get_field('free_delivery', $dish['ID'])];
-        $dish += ['delivery_price' => get_field('delivery_price', $dish['ID'])];
-        $dish += ['link' => get_permalink($dish['ID'])];
-        array_push($tmp, $dish);
-    }
+    $dishes_list = get_posts([
+        'category' => (int)$_GET['category'],
+        'numberpost' => -1,
+    ]);
+} elseif ($_GET['rest']) {
 
-    array_push($main_arr, $tmp);
+    $dishes_list = get_posts([
+        'category_name' => $_GET['rest'],
+        'numberpost' => -1,
+    ]);
+} elseif (is_front_page()) {
+    $dishes_list = get_posts([
+        'category' => 23,
+        'numberpost' => -1,
+    ]);
+} else {
+
+  $rests_categories_list = get_categories([
+      'parent' => 35,
+      'hide_empty' => false,
+  ]);
+
+  $current_categories_list = get_the_category();
+
+  foreach ($rests_categories_list as $rests_category) {
+      foreach ($current_categories_list as $current_category) {
+          if ($rests_category->name == $current_category->name) {
+              $dishes_list = get_posts([
+                  'category_name' => $current_category->name,
+                  'numberpost' => -1,
+              ]);
+          }
+      }
+  }
+
 }
-
-// get hits dishes
-
-$hits_dishes = get_posts([
-    'category' => 23,
-    'numberpost' => -1,
-]);
-$hits_dishes = (array)$hits_dishes;
-
-$tmp_dish = [];
-
-foreach ($hits_dishes as $hits_dish) {
-  $hits_dish = (array)$hits_dish;
-  $hits_dish += ['img' => get_field('img', $hits_dish['ID'])];
-  $hits_dish += ['price' => get_field('price', $hits_dish['ID'])];
-  $hits_dish += ['free_delivery' => get_field('free_delivery', $hits_dish['ID'])];
-  $hits_dish += ['delivery_price' => get_field('delivery_price', $hits_dish['ID'])];
-  $hits_dish += ['link' => get_permalink($hits_dish['ID'])];
-  array_push($tmp_dish, $hits_dish);
-}
-
-$hits_dishes = $tmp_dish;
 
 ?>
-<script>
-  let allDishes = <?= json_encode($main_arr, JSON_UNESCAPED_UNICODE); ?>;
-  let hitsDishes = <?= json_encode($hits_dishes, JSON_UNESCAPED_UNICODE); ?>;
-</script>
-
-<div class="dishes container">
-  <p class="dish__category caption">Hits</p>
 
   <div class="dishes-list">
-    <?php foreach ($hits_dishes as $dish) : ?>
-    <a href="<?= get_permalink($dish['ID']); ?>" class="dish">
-      <div class="dish__img-wrap">
-        <div class="dish__img" style="background-image: url('<?= $dish['img']; ?>');"></div>
-      </div>
-      <div class="dish__info">
-        <div class="dish__info_main">
-          <p class="dish__info_title"><?= $dish['post_title']; ?></p>
-          <p class="dish__info_coast"><?= $dish['price']; ?><span></span></p>
+    <?php
+    if (count($dishes_list) == 0) : ?>
+    <p class="dishes-list__empty">Unfortunately there are not dishes in this category</p>
+    <?php else :
+      foreach ($dishes_list as $dish) :
+          if ($dish->ID == get_the_ID()) continue; ?>
+      <a href="<?= (int)$_GET['biglunch'] || get_the_ID() == 127
+          ? get_permalink($dish->ID) . '?biglunch=1' : get_permalink($dish->ID); ?>"
+         class="dish">
+        <div class="dish__img-wrap">
+          <div class="dish__img"
+               style="background-image: url('<?= get_field('img', $dish->ID); ?>');"></div>
         </div>
-        <div class="dish__info_delivery">
-            <?php if (get_field('free_delivery', $dish['ID'])) : ?>
-              <p class="free">Free delivery</p>
-            <?php else : ?>
-              <p class="price">Delivery <?= get_field('delivery_price', $dish['ID']); ?></p>
-            <?php endif; ?>
+        <div class="dish__info">
+          <div class="dish__info_main">
+            <p class="dish__info_title"><?= get_the_title($dish->ID); ?></p>
+            <p class="dish__info_coast"><?= get_field('price', $dish->ID); ?><span></span></p>
+          </div>
+          <div class="dish__info_delivery">
+              <?php if (get_field('free_delivery', $dish->ID)) : ?>
+                <p class="free">Free delivery</p>
+              <?php else : ?>
+                <p class="price">Delivery <?= get_field('delivery_price', $dish->ID); ?></p>
+              <?php endif; ?>
+          </div>
         </div>
-      </div>
-    </a>
-    <?php endforeach; ?>
+      </a>
+      <?php
+      endforeach;
+    endif; ?>
   </div>
-
-</div>
 
 
 

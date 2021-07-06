@@ -31,6 +31,9 @@ window.addEventListener('load', function () {
 
         categoriesList.forEach(c => {
             c.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    return;
+                }
                 e.preventDefault();
                 if (this.classList.contains('active')) {
                     return;
@@ -41,58 +44,52 @@ window.addEventListener('load', function () {
                 dishesList.innerHTML = '';
                 categoryCaption.innerHTML = this.innerHTML;
 
-                this.classList.add('active');
-                document.querySelector(`${categoryItemClass}.active`)
-                    .classList.remove('active');
-
-                if (categoryId === 23) {
-                    createDishes(categoryId, hitsDishes);
+                const activeCat = categoriesList.filter(c => c.parentElement.classList.contains('active'))[0];
+                if (activeCat) {
+                    activeCat.parentElement.classList.remove('active');
                 }
+
+                this.parentElement.classList.add('active');
+
 
                 createDishes(categoryId);
             });
+        });
 
-            function createDishes(catId, arr = allDishes) {
+        function createDishes(catId, arr = allDishes) {
 
-                if (arr !== allDishes) {
-                    arr.forEach(a => {
-                       createElements(a);
-                    });
-                    return;
-                }
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i][0] === catId) {
+                    if (arr[i].length > 1) {
+                        arr[i].forEach(a => {
+                            if (arr[i][0] === a) {
+                                return;
+                            }
 
-                for (let i = 0; i < allDishes.length; i++) {
-                    if (allDishes[i][0] === catId) {
-                        if (allDishes[i].length > 1) {
-                            allDishes[i].forEach(a => {
-                                if (allDishes[i][0] === a) {
-                                    return;
-                                }
+                            if (a.post_status !== 'publish') {
+                                return;
+                            }
 
-                                if (a.post_status !== 'publish') {
-                                    return;
-                                }
-
-                                createElements(a);
-                            });
-                            break;
-                        }
-
-                        const emptyCategoryElement = document.createElement('p');
-                        emptyCategoryElement.classList.add('dishes-list__empty');
-                        emptyCategoryElement.innerHTML = 'Unfortunately there are not dishes in this category';
-                        dishesList.appendChild(emptyCategoryElement);
+                            createElements(a);
+                        });
                         break;
                     }
+
+                    const emptyCategoryElement = document.createElement('p');
+                    emptyCategoryElement.classList.add('dishes-list__empty');
+                    emptyCategoryElement.innerHTML = 'Unfortunately there are not dishes in this category';
+                    dishesList.appendChild(emptyCategoryElement);
+                    break;
                 }
             }
+        }
 
-            function createElements(data) {
-                const dishItem = document.createElement('a');
-                dishItem.classList.add('dish');
-                dishItem.setAttribute('href', data.link);
+        function createElements(data) {
+            const dishItem = document.createElement('a');
+            dishItem.classList.add('dish');
+            dishItem.setAttribute('href', data.link);
 
-                const elementTemplate = `
+            const elementTemplate = `
                                     <div class="dish__img-wrap">
                                       <div class="dish__img" style="background-image: url('${data.img}');"></div>
                                     </div>
@@ -102,16 +99,16 @@ window.addEventListener('load', function () {
                                         <p class="dish__info_coast">${data.price}<span></span></p>
                                       </div>
                                       <div class="dish__info_delivery">
-                                        <p class="${data.free_delivery ? 
-                                            'free' : 'price'}">${data.free_delivery ? 
-                                            'Free delivery' : 'Delivery ' + data.delivery_price}</p> 
+                                        <p class="${data.free_delivery ?
+                'free' : 'price'}">${data.free_delivery ?
+                'Free delivery' : 'Delivery ' + data.delivery_price}</p> 
                                       </div>
                                     </div>`;
-                dishItem.insertAdjacentHTML('afterbegin', elementTemplate);
+            dishItem.insertAdjacentHTML('afterbegin', elementTemplate);
 
-                dishesList.appendChild(dishItem);
-            }
-        });
+            dishesList.appendChild(dishItem);
+        }
+
     })();
 
     (function restaurantsSlider() {
@@ -125,6 +122,7 @@ window.addEventListener('load', function () {
             slidesToScroll: 1,
             prevArrow: '<div class="slick-prev"><span></span></div>',
             nextArrow: '<div class="slick-next"><span></span></div>',
+            autoplay: true,
         });
     })();
 

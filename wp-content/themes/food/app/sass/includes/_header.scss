@@ -1,12 +1,12 @@
 .home-page {
 
   .header {
+    padding-top: 200px;
+    padding-bottom: 275px;
 
     &__wrap {
       position: relative;
       width: 100%;
-      padding-top: 200px;
-      padding-bottom: 275px;
     }
 
     &__text {
@@ -16,6 +16,9 @@
 
       &_main {
         margin-bottom: 30px;
+        font-size: 100px;
+        text-transform: uppercase;
+        font-weight: 500;
 
         & p {
           font-size: 100px;
@@ -40,6 +43,114 @@
       right: 0;
       top: 50%;
       transform: translateY(-50%);
+    }
+    
+    &.biglunch {
+      color: #fff;
+      padding-top: 140px;
+      padding-bottom: 130px;
+    }
+
+    &.with-banner {
+      padding-top: 0;
+      padding-bottom: 0;
+      display: flex;
+    }
+
+    &__restaurant {
+      flex-basis: 50%;
+
+      &_img {
+        width: 100%;
+        height: 30vw;
+        background-position: center;
+        background-size: cover;
+      }
+
+      &_info-wrap {
+        padding: 50px 30px 50px 0;
+        margin-left: calc((99vw - 1170px + 30px) / 2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &_title {
+        font-size: 40px;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+
+      &_phone {
+        font-size: 30px;
+        font-weight: 300;
+        display: block;
+        color: $grey-color;
+        padding-left: 30px;
+        background-position: left bottom;
+        background-size: 26px;
+        background-image: url('../../img/phone.png');
+        background-repeat: no-repeat;
+
+        @include on-event {
+          text-decoration: underline;
+        }
+      }
+
+      &_text {
+        font-size: 24px;
+        font-weight: 500;
+
+        &.price {
+          padding-right: 20px;
+          background-image: url('../../img/euro.png');
+          background-repeat: no-repeat;
+          background-size: 20px;
+          background-position: right bottom;
+        }
+
+        &.free {
+          padding-left: 25px;
+          background-image: url('../../img/free-delivery.png');
+          background-repeat: no-repeat;
+          background-size: initial;
+          background-position: left bottom;
+        }
+      }
+
+      &_location {
+        margin-bottom: 14px;
+      }
+    }
+
+    &__banner {
+      flex-basis: 50%;
+      padding-left: 55px;
+      padding-top: 135px;
+      width: fit-content;
+
+      &_caption {
+        font-size: 48px;
+        font-weight: 500;
+        color: $grey-color;
+        margin-bottom: 30px;
+        width: fit-content;
+      }
+
+      &_subcaption {
+        padding: 0 10px 10px 10px;
+        color: #fff;
+        font-size: 30px;
+        font-weight: 300;
+        width: fit-content;
+        background-color: #8ec241;
+        margin-bottom: 25px;
+      }
+
+      &_img {
+        width: calc(1140px / 2 - 55px);
+        text-align: center;
+      }
     }
   }
 }
