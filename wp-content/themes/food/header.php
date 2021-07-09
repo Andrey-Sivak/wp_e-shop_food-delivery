@@ -56,7 +56,6 @@ foreach ($current_categories_list as $current_category) {
 <?php wp_body_open(); ?>
 <div id="page" class="site home-page">
 
-
 	<header id="masthead"
           class="site-header header <?= $is_biglunch ? 'biglunch' : ''; echo $is_banner ? 'with-banner' : ''; ?>"
           <?php if (!$is_banner) : ?>
@@ -78,7 +77,7 @@ foreach ($current_categories_list as $current_category) {
                                     ? 'active' : ''; ?>">
         <a data-id="23"
            href="<?=  is_front_page() || is_home() ? '#' : get_home_url() . '?category=23'; ?>"
-           class="categories__item_link">Hits</a>
+           class="categories__item_link">Free delivery</a>
       </li>
       <?php foreach ($dishes_categories_arr as $dishes_category) :
 
@@ -112,7 +111,7 @@ foreach ($current_categories_list as $current_category) {
             // 115 is default width of See more button
             let counter = 115;
             cats.forEach(c => {
-                counter += c.clientWidth + 45;
+                counter += c.clientWidth + 30;
 
                 if (counter >= container) {
                     sortedElems.push(c);

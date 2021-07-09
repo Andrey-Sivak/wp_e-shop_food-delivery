@@ -45,7 +45,7 @@ foreach ($dishes_categories as $dishes_category) {
     array_push($main_arr, $tmp);
 }
 
-$current_category = 'Hits';
+$current_category = 'Free delivery';
 
 if ($_GET['category']) {
     $get_current_category = get_category(+$_GET['category'], ARRAY_A);

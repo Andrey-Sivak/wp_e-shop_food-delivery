@@ -24,7 +24,7 @@
         <p class="footer__text"><?= get_field('about_delivery', 'option') ?></p>
       </div>
     </div>
-    <p class="footer__copyright"><span class="footer__copyright_bold">&copy; biglunch.online 2019</span> contact us <a                href="<?= get_field('phone', 'option') ?>" class="footer__copyright_link">WhatsApp</a></p>
+    <p class="container footer__copyright"><span class="footer__copyright_bold">&copy; biglunch.online 2019</span> contact us <a href="https://wa.me/<?= get_field('phone', 'option') ?>" class="footer__copyright_link">WhatsApp</a></p>
 	</footer>
 </div>
 

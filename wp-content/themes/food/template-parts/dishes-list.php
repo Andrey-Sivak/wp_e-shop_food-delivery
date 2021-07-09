@@ -53,8 +53,16 @@ if (+$_GET['biglunch'] || get_the_ID() == 127) {
     <p class="dishes-list__empty">Unfortunately there are not dishes in this category</p>
     <?php else :
       foreach ($dishes_list as $dish) :
+          $item_cats = get_the_category($dish->ID);
+          $bigl = false;
+          foreach($item_cats as $item_cat) {
+              if($item_cat->slug == 'biglunch') {
+                  $bigl = true;
+                  break;
+              }
+          }
           if ($dish->ID == get_the_ID()) continue; ?>
-      <a href="<?= (int)$_GET['biglunch'] || get_the_ID() == 127
+      <a href="<?= (int)$_GET['biglunch'] || get_the_ID() == 127 || $bigl
           ? get_permalink($dish->ID) . '?biglunch=1' : get_permalink($dish->ID); ?>"
          class="dish">
         <div class="dish__img-wrap">
@@ -79,6 +87,12 @@ if (+$_GET['biglunch'] || get_the_ID() == 127) {
       endforeach;
     endif; ?>
   </div>
+  
+  <style>
+      .dishes-list {
+          align-items: flex-start;
+      }
+  </style>
 
 
 

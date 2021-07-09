@@ -3,6 +3,10 @@
   padding-bottom: 82px;
   margin-top: 60px;
 
+  @include response-to(small) {
+    margin-top: 25px;
+  }
+
   &__text-block {
 
     &:first-of-type {

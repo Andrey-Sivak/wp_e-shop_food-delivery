@@ -41,9 +41,11 @@ foreach ($restaurants as $restaurant) {
 <a href="<?= get_permalink(127); ?>"
    class="header__banner"
    style="background-color: <?= get_field('banner_color', 'option'); ?>;">
-    <p class="header__banner_caption"><?= get_field('banner_caption', 'option'); ?></p>
-    <p class="header__banner_subcaption"><?= get_field('small_note_text', 'option'); ?></p>
-    <div class="header__banner_img">
-      <img src="<?= get_field('banner_image', 'option'); ?>" alt="img">
+    <div class="header__banner_caption"><?= get_field('banner_caption', 'option'); ?></div>
+    <div class="header__banner_subcaption">
+      <p class="header__banner_note"><?= get_field('small_note_text', 'option'); ?></p>
+      <img src="<?= get_field('banner_image', 'option'); ?>"
+           alt="img"
+           class="header__banner_img">
     </div>
 </a>

@@ -16,9 +16,37 @@
     @include on-event {
       background-color: #d1d1d1;
     }
+    
+    @include response-to(medium) {
+      background-color: #eaeaea;
+    }
+
+    @include response-to(small) {
+      background-color: unset;
+      border: unset;
+      margin: 0 10px;
+    }
 
     &.active {
       background-color: #d1d1d1;
+
+      @include response-to(medium) {
+        border: 1px solid #777;
+      }
+
+      @include response-to(small) {
+        background-color: unset;
+        border: unset;
+      }
+
+
+      & .categories__item_link {
+
+        @include response-to(small) {
+          background-color: #d1d1d1;
+          border: 1px solid #777;
+        }
+      }
     }
 
     &_link {
@@ -28,6 +56,15 @@
       display: block;
       color: $grey-color;
       white-space: nowrap;
+      @include transition-ease;
+
+      @include response-to(small) {
+        font-size: 18px;
+        width: fit-content;
+        margin: 0 auto;
+        background-color: #eaeaea;
+        border-radius: 5px;
+      }
     }
 
     &:hover {

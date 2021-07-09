@@ -19,8 +19,7 @@ foreach ($rests_categories_list as $rests_category) {
 }
 ?>
 
-<div class="container"
-     style="margin-top: 55px;">
+<div class="container one-dish">
     <p class="caption">Welcome to <?= $current_cat; ?>! <br>Our menu:</p>
     <?php get_template_part('/template-parts/dish-item'); ?>
 

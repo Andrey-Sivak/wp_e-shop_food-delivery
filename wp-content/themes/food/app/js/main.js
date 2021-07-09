@@ -123,7 +123,71 @@ window.addEventListener('load', function () {
             prevArrow: '<div class="slick-prev"><span></span></div>',
             nextArrow: '<div class="slick-next"><span></span></div>',
             autoplay: true,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }
+            ]
         });
+    })();
+
+    (function categoriesSlider() {
+        if (!document.querySelector('.categories')) {
+            return;
+        }
+
+        let isMobile = false;
+        const sliderSelector = '.categories';
+
+        if (document.body.offsetWidth < 767) {
+            isMobile = true;
+            initSlider(sliderSelector);
+        }
+
+        window.addEventListener('resize', function (e) {
+            let windowWidth = document.body.offsetWidth;
+            if (windowWidth < 767) {
+                if (!isMobile) {
+                    isMobile = true;
+                    initSlider(sliderSelector);
+                }
+            } else if (isMobile) {
+                isMobile = false;
+                destroySlider(sliderSelector);
+            }
+        });
+
+        function initSlider(slider) {
+            $(slider).slick({
+                infinite: false,
+                slidesToShow: 5,
+                variableWidth: true,
+                swipeToSlide: true,
+                prevArrow: '',
+                nextArrow: '',
+                responsive: [
+                    {
+                        breakpoint: 475,
+                        settings: {
+                            slidesToShow: 4,
+                        }
+                    },
+                ]
+            })
+        }
+
+        function destroySlider(slider) {
+            $(slider).slick('unslick');
+        }
     })();
 
 });
