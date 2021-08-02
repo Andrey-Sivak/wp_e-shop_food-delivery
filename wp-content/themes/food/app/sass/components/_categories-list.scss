@@ -2,9 +2,12 @@
   opacity: 1;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: calc(100% - 55px);
   flex-wrap: nowrap;
-  margin-top: 27px;
+
+  @include response-to(small) {
+    width: calc(100% - 40px);
+  }
 
   &__item {
     border-radius: 5px;
@@ -93,4 +96,58 @@
       }
     }
   }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  margin-top: 27px;
+}
+
+.favorites {
+  width: 30px;
+  height: 30px;
+  margin-right: 25px;
+  cursor: pointer;
+  background-image: url('../../img/heart_fill.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-bottom: 3px;
+  position: relative;
+
+  @include response-to(small) {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    margin-bottom: 7px;
+  }
+
+  &:before {
+    position: absolute;
+    content: 'Favorite dishes';
+    max-width: 100px;
+    background-color: #fff;
+    display: block;
+    color: #fc3037;
+    font-size: 14px;
+    top: 100%;
+    left: 50%;
+    opacity: 0;
+    z-index: -100;
+    transform: translateX(-50%);
+    text-align: center;
+    @include transition-ease;
+  }
+
+  @include on-event {
+    &:before {
+      opacity: 1;
+      z-index: 100;
+    }
+  }
+}
+
+.favorites-page {
+  margin-top: 30px;
 }

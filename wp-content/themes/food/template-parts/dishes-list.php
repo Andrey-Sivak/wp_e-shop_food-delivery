@@ -1,28 +1,46 @@
 <?php
+$favorites = $_SESSION['favorites'];
 
 if (+$_GET['biglunch'] || get_the_ID() == 127) {
 
     $dishes_list = get_posts([
         'category' => 42,
-        'numberpost' => -1,
+        'numberposts' => -1,
+        'order' => 'ASC',
+        'orderby' => 'date'
     ]);
 } elseif ($_GET['category']) {
 
     $dishes_list = get_posts([
         'category' => (int)$_GET['category'],
-        'numberpost' => -1,
+        'numberposts' => -1,
+        'order' => 'ASC',
+        'orderby' => 'date'
     ]);
 } elseif ($_GET['rest']) {
 
     $dishes_list = get_posts([
         'category_name' => $_GET['rest'],
-        'numberpost' => -1,
+        'numberposts' => -1,
+        'order' => 'ASC',
+        'orderby' => 'date'
     ]);
 } elseif (is_front_page()) {
     $dishes_list = get_posts([
         'category' => 23,
-        'numberpost' => -1,
+        'numberposts' => -1,
+        'order' => 'ASC',
+        'orderby' => 'date'
     ]);
+} elseif (get_the_title() == 'Favorites') {
+  $dishes_list = [];
+  foreach ($favorites as $favorite) {
+    if (!$favorite) {
+      continue;
+    }
+    $post = get_post((int)$favorite);
+    array_push($dishes_list, $post);
+  }
 } else {
 
   $rests_categories_list = get_categories([
@@ -37,12 +55,13 @@ if (+$_GET['biglunch'] || get_the_ID() == 127) {
           if ($rests_category->name == $current_category->name) {
               $dishes_list = get_posts([
                   'category_name' => $current_category->name,
-                  'numberpost' => -1,
+                  'numberposts' => -1,
+                  'order' => 'ASC',
+                  'orderby' => 'date'
               ]);
           }
       }
   }
-
 }
 
 ?>
@@ -61,38 +80,35 @@ if (+$_GET['biglunch'] || get_the_ID() == 127) {
                   break;
               }
           }
-          if ($dish->ID == get_the_ID()) continue; ?>
+//          if ($dish->ID == get_the_ID()) continue; ?>
       <a href="<?= (int)$_GET['biglunch'] || get_the_ID() == 127 || $bigl
           ? get_permalink($dish->ID) . '?biglunch=1' : get_permalink($dish->ID); ?>"
          class="dish">
         <div class="dish__img-wrap">
+          <span data-dish="<?= $dish->ID; ?>"
+                class="dish__favorite<?= in_array((string)$dish->ID, $favorites) ? ' active' : ''; ?>"></span>
           <div class="dish__img"
                style="background-image: url('<?= get_field('img', $dish->ID); ?>');"></div>
         </div>
         <div class="dish__info">
           <div class="dish__info_main">
             <p class="dish__info_title"><?= get_the_title($dish->ID); ?></p>
-            <p class="dish__info_coast"><?= get_field('price', $dish->ID); ?><span></span></p>
+            <p class="dish__info_coast"><?= get_field('price', $dish->ID); ?>&#8364;</p>
           </div>
           <div class="dish__info_delivery">
               <?php if (get_field('free_delivery', $dish->ID)) : ?>
                 <p class="free">Free delivery</p>
               <?php else : ?>
-                <p class="price">Delivery <?= get_field('delivery_price', $dish->ID); ?></p>
+                <p class="price">Delivery <?= get_field('delivery_price', $dish->ID); ?>&#8364;</p>
               <?php endif; ?>
           </div>
         </div>
       </a>
-      <?php
-      endforeach;
-    endif; ?>
+      <?php endforeach;
+      if (count($dishes_list) % 3 == 2) : ?>
+      <div class="dish hidden"></div>
+    <?php endif; endif; ?>
   </div>
-  
-  <style>
-      .dishes-list {
-          align-items: flex-start;
-      }
-  </style>
 
 
 

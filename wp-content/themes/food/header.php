@@ -9,10 +9,21 @@
  * @package food
  */
 
+session_start();
+
+if (!isset($_SESSION['favorites'])) {
+    $_SESSION['favorites'] = [];
+} else {
+    $favorites = $_SESSION['favorites'];
+}
+
+
 $dishes_categories = get_categories([
     'parent' => 22,
     'hide_empty' => false,
-    'exclude' => 23
+    'exclude' => 23,
+    'orderby' => 'date',
+    'order' => 'ASC',
 ]);
 
 $dishes_categories = (array)$dishes_categories;
@@ -42,12 +53,33 @@ foreach ($current_categories_list as $current_category) {
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-  <script>
-      let theme_directory = "<?php echo get_template_directory_uri() ?>";
-  </script>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+
+  <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="<?= get_template_directory_uri() . '/favicon/apple-touch-icon.png' ?>">
+  <link rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="<?= get_template_directory_uri() . '/favicon/favicon-32x32.png' ?>">
+  <link rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="<?= get_template_directory_uri() . '/favicon/favicon-16x16.png' ?>">
+  <link rel="manifest"
+        href="<?= get_template_directory_uri() . '/favicon/site.webmanifest' ?>">
+  <link rel="mask-icon"
+        href="<?= get_template_directory_uri() . '/favicon/safari-pinned-tab.svg' ?>"
+        color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <script>
+    let theme_directory = "<?php echo get_template_directory_uri() ?>";
+    let dishesCount = <?= get_field('count_dishes', 'option'); ?>;
+  </script>
 
 	<?php wp_head(); ?>
 </head>
@@ -59,10 +91,10 @@ foreach ($current_categories_list as $current_category) {
 	<header id="masthead"
           class="site-header header <?= $is_biglunch ? 'biglunch' : ''; echo $is_banner ? 'with-banner' : ''; ?>"
           <?php if (!$is_banner) : ?>
-          style="background-color: <?= $is_biglunch ? get_field('color', 127) : get_field('color'); ?>;"
+          style="background-color: <?= $is_biglunch ? get_field('color', 127) : get_field('color', 6); ?>;"
           <?php endif;
           echo '>'; ?>
-    <?php if ( is_front_page() || is_home() ) {
+    <?php if ( is_front_page() || is_home() || get_the_title() == 'Favorites' ) {
         get_template_part('/headers/defaultHeader');
     } elseif ($is_biglunch) {
         get_template_part('/headers/headerWithoutBanner');
@@ -71,7 +103,9 @@ foreach ($current_categories_list as $current_category) {
     } ?>
 
 	</header>
-  <nav class="container">
+  <nav class="container navigation">
+    <a href="<?= get_permalink(get_page_by_title('Favorites')); ?>"
+       class="favorites"></a>
     <ul class="categories">
       <li class="categories__item <?= !$_GET['category'] && is_front_page() || $_GET['category'] == 23
                                     ? 'active' : ''; ?>">

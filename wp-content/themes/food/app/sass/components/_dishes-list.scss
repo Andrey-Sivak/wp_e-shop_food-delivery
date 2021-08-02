@@ -13,12 +13,23 @@
   }
 
   .dish {
+    position: relative;
     width: 30%;
-    display: block;
+    display: none;
     border-radius: 10px;
     box-shadow: 0px 5px 27px 0px rgba(0, 0, 0, 0.17);
     margin-bottom: 30px;
     overflow: hidden;
+    opacity: 0;
+    max-height: 1px;
+    max-width: 1px;
+    @include transition-ease;
+
+    &.active {
+      opacity: 1;
+      max-height: 500px;
+      max-width: 500px;
+    }
 
     @include on-event {
       .dish__img {
@@ -27,25 +38,47 @@
     }
 
     @include response-to(small) {
-      width: 48%;
+      width: 100%;
+      max-width: 310px;
+      margin-left: auto;
+      margin-right: auto;
       margin-bottom: 15px;
       box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    &.hidden {
+      opacity: 0;
     }
 
     &__img-wrap {
       overflow: hidden;
       width: 100%;
       height: 230px;
+      position: relative;
+
+      &:before {
+        display: block;
+        position: absolute;
+        opacity: .3;
+        content: '';
+        left: 0;
+        top: 60%;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+        background-image: linear-gradient(to bottom, rgba(61, 26, 22, 0), rgba(61, 26, 22, 0.6));
+      }
 
       @include response-to(small) {
-        height: 120px;
+        height: 170px;
       }
     }
 
     &__img {
       width: 100%;
       height: 100%;
-      background-size: cover;
+      background-size: contain;
+      background-repeat: no-repeat;
       background-position: center;
       @include transition-ease;
     }
@@ -60,16 +93,22 @@
       &_main {
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
       }
 
       &_title {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 500;
         color: $grey-color;
         margin-right: 10px;
+        max-width: 78%;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         @include response-to(small) {
-          font-size: 15px;
+          font-size: 18px;
         }
       }
 
@@ -77,17 +116,9 @@
         color: $grey-color;
         font-size: 24px;
         font-weight: 500;
-        padding-right: 22px;
-        background-image: url('../../img/euro.png');
-        background-size: initial;
-        background-position: right 8px;
-        background-repeat: no-repeat;
 
         @include response-to(small) {
-          font-size: 16px;
-          background-size: 12px;
-          background-position: right 5px;
-          padding-right: 15px;
+          font-size: 18px;
         }
       }
 
@@ -101,14 +132,14 @@
           font-size: 18px;
           font-weight: 300;
           color: $grey-color;
-          background-repeat: no-repeat;
-          background-size: contain;
 
           @include response-to(small) {
-            font-size: 14px;
+            font-size: 15px;
           }
 
           &.free {
+            background-repeat: no-repeat;
+            background-size: contain;
             padding-left: 28px;
             background-position: center left;
             background-image: url('../../img/free-delivery.png');
@@ -117,21 +148,88 @@
               padding-left: 23px;
             }
           }
+        }
+      }
+    }
 
-          &.price {
-            padding-right: 18px;
-            background-position: right 5px;
-            background-image: url('../../img/euro.png');
-            background-size: 12px;
+    &__favorite {
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      z-index: 100;
+      right: 20px;
+      bottom: 0;
+      background-image: url('../../img/heart.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
 
-            @include response-to(small) {
-              background-position: right 4px;
-              background-size: 11px;
-              padding-right: 14px;
-            }
+      @include response-to(small) {
+        right: 10px;
+      }
+
+      &:before {
+        position: relative;
+        width: fit-content;
+        display: block;
+        white-space: nowrap;
+        transform: translateX(-93%);
+        content: 'Add to favorites';
+        padding: 3px 10px;
+        //background-image: linear-gradient(90deg, #fff, 90%, rgba(#fff, 0));
+        color: #fc3037;
+        @include transition-ease;
+        opacity: 0;
+        font-size: 14px;
+        z-index: -100;
+
+        @include response-to(small) {
+          content: none;
+        }
+      }
+
+      @include on-event {
+        &:before {
+          opacity: 1;
+          z-index: 100;
+        }
+      }
+
+      &.active {
+        background-image: url('../../img/heart_fill.png');
+
+        &:before {
+          content: 'Remove from favorites';
+
+          @include response-to(small) {
+            content: none;
           }
         }
       }
     }
+  }
+
+  &__see-more {
+    display: block;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 0 14px;
+    background-color: #fce000;
+    border-radius: 8px;
+    margin-top: 30px;
+    @include transition-ease;
+
+    @include on-event {
+      background-color: darken(#fce000, 5%);
+
+    }
+  }
+
+  &__note {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
   }
 }

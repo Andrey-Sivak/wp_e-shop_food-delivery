@@ -11,8 +11,9 @@
  *
  * @package food
  */
+get_header();
 
-
+$favorites = $_SESSION['favorites'];
 
 // get all dishes without hits
 $dishes_categories = get_categories([
@@ -28,16 +29,29 @@ foreach ($dishes_categories as $dishes_category) {
     array_push($tmp, $dishes_category->term_id);
     $dishes = get_posts([
         'category' => $dishes_category->term_id,
-        'numberpost' => -1,
+        'numberposts' => -1,
+        'order' => 'ASC',
+        'orderby' => 'date'
     ]);
     $dishes = (array)$dishes;
 
     foreach ($dishes as $dish) {
+        $item_cats = get_the_category($dish->ID);
+        $bigl = false;
+        foreach($item_cats as $item_cat) {
+            if($item_cat->slug == 'biglunch') {
+                $bigl = true;
+                break;
+            }
+        }
+
         $dish = (array)$dish;
+        $bigl ? $dish += ['biglunch' => true] : ['biglunch' => false];
         $dish += ['img' => get_field('img', $dish['ID'])];
         $dish += ['price' => get_field('price', $dish['ID'])];
         $dish += ['free_delivery' => get_field('free_delivery', $dish['ID'])];
         $dish += ['delivery_price' => get_field('delivery_price', $dish['ID'])];
+        $dish += ['favorite' => in_array((string)$dish['ID'], $favorites)];
         $dish += ['link' => get_permalink($dish['ID'])];
         array_push($tmp, $dish);
     }
@@ -50,9 +64,7 @@ $current_category = 'Free delivery';
 if ($_GET['category']) {
     $get_current_category = get_category(+$_GET['category'], ARRAY_A);
     $current_category = $get_current_category['name'];
-}
-
-get_header(); ?>
+} ?>
   <script>
       let allDishes = <?= json_encode($main_arr, JSON_UNESCAPED_UNICODE); ?>;
   </script>
