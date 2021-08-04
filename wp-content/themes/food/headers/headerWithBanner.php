@@ -11,13 +11,13 @@ $current_category = null;
 
 foreach ($restaurants as $restaurant) {
     foreach ($current_cats as $current_cat) {
-        if ($restaurant->post_title == $current_cat->name) {
+
+        if ($restaurant->post_name == $current_cat->slug) {
             $current_category = $restaurant;
             break 2;
         }
     }
 }
-
 ?>
 
 <div class="container header__restaurant">

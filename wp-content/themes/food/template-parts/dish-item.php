@@ -19,7 +19,7 @@ $current_category = null;
 
 foreach ($restaurants as $restaurant) {
     foreach ($current_cats as $current_cat) {
-        if ($restaurant->post_title == $current_cat->name) {
+        if ($restaurant->post_name == $current_cat->slug) {
             $current_category = $restaurant;
             break 2;
         }
@@ -31,10 +31,17 @@ foreach ($restaurants as $restaurant) {
     <div class="dish-item__img" 
          style="background-image: url('<?= get_field('img'); ?>');"></div>
     <div class="dish-item__main">
+        <?php
+        $portion = get_field('portion');
+        if (!isset($portion)) {
+          $portion = ' (' . $portion . ') ';
+        } else {
+          $portion = '';
+        }
+        ?>
         <p class="dish-item__caption"><?= get_the_title()
-                                            . ' ('
-                                            . get_field('portion')
-                                            . ') Price: '; ?><span><?= get_field('price'); ?>&#8364;</span></p>
+                                            . $portion
+                                            . ' Price: '; ?><span><?= get_field('price'); ?>&#8364;</span></p>
         <p class="dish-item__text dish-item__desc"><?= get_field('desc'); ?></p>
         <p class="dish-item__text">WhatsApp order please</p>
         <div class="dish-item__order">

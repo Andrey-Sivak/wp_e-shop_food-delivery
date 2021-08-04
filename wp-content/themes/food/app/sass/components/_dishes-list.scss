@@ -106,6 +106,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        padding: 3px 0 5px;
 
         @include response-to(small) {
           font-size: 18px;
